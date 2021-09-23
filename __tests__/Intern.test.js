@@ -9,25 +9,31 @@
 //Can get school via getSchool()
 //getRole() should return "Intern"
 
-const Employee = require('../lib/Employee');
-const Intern = require('../lib/Intern');
+const Intern = require('../lib/intern');
 
 describe('Intern', () => {
-  it('Should return a new user from the intern class', () => {
-    const newEmployee = new Employee(newName, newId, newEmail);
-    expect(typeof newEmployee).toBe('object');
-    const newIntern = new Intern(newSchool);
-    expect(typeof newIntern).toBe('object');
+  it('should return a new object from the intern class', () => {
+    const obj = new Intern();
+    expect(typeof obj).toBe('object');
   });
-  it('Can get school using constructor args', () => {
-    const newSchool = 'UT';
-    const newIntern = new Intern(newSchool);
-    expect(newIntern.newSchool).toEqual(newSchool);
+  it('can set a name using constructor args', () => {
+    const name = 'Ben';
+    const obj = new Intern(name);
+    expect(obj.name).toEqual(name);
   });
-  it('Can get school via getSchool()', () => {
-    expect(newIntern.getSchool()).toEqual('UT');
+  it('can set an id using constructor args', () => {
+    const id = 2;
+    const obj = new Intern('foo', id);
+    expect(obj.id).toEqual(id);
   });
-  it("getRole() should return 'Intern'", () => {
-    expect(newIntern.getRole()).toEqual('Intern');
+  it('can set an email using constructor args', () => {
+    const email = 'foo@yahoo.com';
+    const obj = new Intern('foo', 4, email);
+    expect(obj.email).toEqual(email);
+  });
+  it('can set a school using constructor args', () => {
+    const school = 'DU';
+    const obj = new Intern('foo', 4, 'nick@gmail.com', school);
+    expect(obj.school).toEqual(school);
   });
 });

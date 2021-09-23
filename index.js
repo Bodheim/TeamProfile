@@ -8,204 +8,253 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
 
-const memberType = [];
-const members = [];
+const employees = [];
+init();
 
-// Required call to set up web page
-// ^need to restate that later
-const generate = require('./lib/generate.js');
-
-const managerQs = [
-  {
-    type: 'input',
-    name: 'name',
-    message: "What is the team manager's name?",
-  },
-  {
-    type: 'input',
-    name: 'id',
-    message: "What is the team manager's id?",
-  },
-  {
-    type: 'input',
-    name: 'email',
-    message: "What is the team manager's email?",
-  },
-  {
-    type: 'input',
-    name: 'other',
-    message: "What is the team manager's office number?",
-  },
-  {
-    type: 'list',
-    name: 'new',
-    message: 'Which type of team member would you like to add?',
-    choices: ['Manager', 'Engineer', 'Intern', 'No More'],
-  },
-];
-
-const engineerQs = [
-  {
-    type: 'input',
-    name: 'name',
-    message: "What is the engineer's name?",
-  },
-  {
-    type: 'input',
-    name: 'id',
-    message: 'What is the engineers id?',
-  },
-  {
-    type: 'input',
-    name: 'email',
-    message: "What is the engineer's email?",
-  },
-  {
-    type: 'input',
-    name: 'other',
-    message: "What is the engineer's git hub username?",
-  },
-  {
-    type: 'list',
-    name: 'new',
-    message: 'Which type of team member would you like to add?',
-    choices: ['Manager', 'Engineer', 'Intern', 'No More'],
-  },
-];
-
-const internQs = [
-  {
-    type: 'input',
-    name: 'name',
-    message: "What is the intern's name?",
-  },
-  {
-    type: 'input',
-    name: 'id',
-    message: "What is the intern's id?",
-  },
-  {
-    type: 'input',
-    name: 'email',
-    message: "What is the intern's email?",
-  },
-  {
-    type: 'input',
-    name: 'other',
-    message: "What is the intern's school?",
-  },
-  {
-    type: 'list',
-    name: 'new',
-    message: 'Which type of team member would you like to add?',
-    choices: ['Manager', 'Engineer', 'Intern', 'No More'],
-  },
-];
-
-Initiate();
-
-function Initiate() {
-  initManager();
+function init() {
+  managerQs();
 }
 
-//  Initialize Manager function: prompts user with manager questions and passes the data into addManager function
-function initManager() {
-  inquirer.prompt(managerQs).then((data) => {
-    const newEmployee = addManager(data);
-    members.push(newEmployee);
-    const nextType = data.new;
-
-    switch (nextType) {
-      case 'Manager':
-        response = initManager();
-        memberType.push('Manager');
-        break;
-      case 'Engineer':
-        response = initEngineer();
-        memberType.push('Engineer');
-        break;
-      case 'Intern':
-        response = initIntern();
-        memberType.push('Intern');
-        break;
-      case 'No More':
-        response = generate(memberType, members);
-        break;
-    }
-    return response;
-  });
+function managerQs() {
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'name',
+        message: "What is the team manager's name?",
+      },
+      {
+        type: 'input',
+        name: 'id',
+        message: "What is the team manager's id?",
+      },
+      {
+        type: 'input',
+        name: 'email',
+        message: "What is the team manager's email?",
+      },
+      {
+        type: 'input',
+        name: 'office',
+        message: "What is the team manager's office number?",
+      },
+    ])
+    .then((response) => {
+      const manager = new Manager(
+        response.name,
+        response.id,
+        response.email,
+        response.office
+      );
+      employees.push(manager);
+      anotherMember();
+    });
 }
 
-//  Takes data answered in manager prompt and creates a new Manager object. Appends this to the team array.
-function addManager(data) {
-  const newManager = new Manager(data.name, data.id, data.email, data.other);
-  return newManager;
+function engineerQs() {
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'name',
+        message: "What is the engineer's name?",
+      },
+      {
+        type: 'input',
+        name: 'id',
+        message: 'What is the engineers id?',
+      },
+      {
+        type: 'input',
+        name: 'email',
+        message: "What is the engineer's email?",
+      },
+      {
+        type: 'input',
+        name: 'github',
+        message: "What is the engineer's GitHub username?",
+      },
+    ])
+
+    .then((response) => {
+      const engineer = new Engineer(
+        response.name,
+        response.id,
+        response.email,
+        response.github
+      );
+      employees.push(engineer);
+      anotherMember();
+    });
 }
 
-//  Initialize Engineer function: prompts user with Engineer questions and passes the data into addEngineer function
-function initEngineer() {
-  inquirer.prompt(engineerQs).then((data) => {
-    const newEmployee = addEngineer(data);
-    members.push(newEmployee);
-    const nextType = data.new;
-
-    switch (nextType) {
-      case 'Manager':
-        response = initManager();
-        memberType.push('Manager');
-        break;
-      case 'Engineer':
-        response = initEngineer();
-        memberType.push('Engineer');
-        break;
-      case 'Intern':
-        response = initIntern();
-        memberType.push('Intern');
-        break;
-      case 'No More':
-        response = generate(memberType, members);
-        break;
-    }
-    return response;
-  });
+function internQs() {
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'name',
+        message: "What is the intern's name?",
+      },
+      {
+        type: 'input',
+        name: 'id',
+        message: "What is the intern's id?",
+      },
+      {
+        type: 'input',
+        name: 'email',
+        message: "What is the intern's email?",
+      },
+      {
+        type: 'input',
+        name: 'school',
+        message: "What is the intern's school?",
+      },
+    ])
+    .then((response) => {
+      const intern = new Intern(
+        response.name,
+        response.id,
+        response.email,
+        response.school
+      );
+      employees.push(intern);
+      anotherMember();
+    });
 }
 
-//  Takes data answered in enineer prompt and creates a new enineer object. Appends this to the team array.
-function addEngineer(data) {
-  const newEngineer = new Engineer(data.name, data.id, data.email, data.other);
-  return newEngineer;
+//  Initialize Manager function: prompts user with manager questions
+function anotherMember() {
+  inquirer
+    .prompt([
+      {
+        type: 'list',
+        message: 'Would you like to add another team member?',
+        choices: ['Manager', 'Engineer', 'Intern', 'None'],
+        name: 'type',
+      },
+    ])
+    .then((response) => {
+      switch (response.type) {
+        case 'Manager':
+          managerQs();
+          break;
+        case 'Engineer':
+          engineerQs();
+          break;
+        case 'Intern':
+          internQs();
+          break;
+        default:
+          generateHTML();
+          break;
+      }
+    });
 }
 
-//  Initialize Engineer function: prompts user with Engineer questions and passes the data into addEngineer function
-function initIntern() {
-  inquirer.prompt(internQs).then((data) => {
-    const newEmployee = addIntern(data);
-    members.push(newEmployee);
-    const nextType = data.new;
+function generateHTML() {
+  const filterManager = employees.filter((em) => em.getRole() === 'Manager');
+  const filterEngineer = employees.filter((em) => em.getRole() === 'Engineer');
+  const filterIntern = employees.filter((em) => em.getRole() === 'Intern');
 
-    switch (nextType) {
-      case 'Manager':
-        response = initManager();
-        memberType.push('Manager');
-        break;
-      case 'Engineer':
-        response = initEngineer();
-        memberType.push('Engineer');
-        break;
-      case 'Intern':
-        response = initIntern();
-        memberType.push('Intern');
-        break;
-      case 'No More':
-        response = generate(memberType, members);
-        break;
-    }
-    return response;
+  const htmlManager = filterManager.map((item) => {
+    return `<div class="card m-4 text-light" style="width: 24rem">
+    <div class="card-header bg-success">
+    <h3>${item.name}</h3>
+    <div class="d-flex flex-row">
+    <p class="m-2">Manager</p>
+    </div>
+    </div>
+    <ul class="list-group list-group-flush text-dark">
+    <li class="list-group-item">ID: ${item.id}</li>
+    <li class="list-group-item">Email: <a href="mailto:${item.email}" target="no_blank">${item.email}</a></li>
+    <li class="list-group-item">Office Number = ${item.office}</li>
+    </ul>
+    </div>`;
   });
 
-  //  Takes data answered in intern prompt and creates a new intern object. Appends this to the team array.
-  function addIntern(data) {
-    const newIntern = new Intern(data.name, data.id, data.email, data.other);
-    return newIntern;
-  }
+  const htmlEngineer = filterEngineer.map((item) => {
+    return `
+    <div class="card m-4 text-light" style="width: 24rem">
+      <div class="card-header bg-warning">
+        <h3>${item.name}</h3>
+      <div class="d-flex flex-row">
+        <p class="m-2">Engineer</p>
+      </div>
+    </div>
+    <ul class="list-group list-group-flush text-dark">
+    <li class="list-group-item">ID: ${item.id}</li>
+    <li class="list-group-item">Email: <a href="mailto:${item.email}" target="no_blank">${item.email}</a></li>
+    <li class="list-group-item">GitHub: <a href="'https://github.com/ + ${item.github}'" target="_blank">${item.github}</a></li>
+    </ul>
+  </div>`;
+  });
+
+  const htmlIntern = filterIntern.map((item) => {
+    return `<div class="card m-4 text-light" style="width: 24rem">
+    <div class="card-header bg-info">
+      <h3>${item.name}</h3>
+      <div class="d-flex flex-row">
+        <p class="m-2">Intern</p>
+      </div>
+    </div>
+    <ul class="list-group list-group-flush text-dark">
+      <li class="list-group-item">ID: ${item.id}</li>
+      <li class="list-group-item">
+        Email: <a href="mailto:${item.email}" target="no_blank">${item.email}</a>
+    </li>
+      <li class="list-group-item">School: ${item.school}</li>
+    </ul>
+  </div>`;
+  });
+
+  let cards = '';
+
+  const pushManager = htmlManager.forEach((item) => {
+    cards += item;
+  });
+  const pushIntern = htmlIntern.forEach((item) => {
+    cards += item;
+  });
+  const pushEngineer = htmlEngineer.forEach((item) => {
+    cards += item;
+  });
+
+  const renderHTML = `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./output/style.css" />
+    <title>Team Profile Generator</title>
+  </head>
+  <body>
+    <nav>
+      <div class="header">My Team</div>
+    </nav>
+    <main
+      class="
+        container
+        d-flex
+        flex-row
+        justify-content-center
+        align-items-center
+        col-10
+      "
+    >
+      <div class="row cardContainer">${cards}</div>
+    </main>
+    <script src="../index.js"></script>
+  </body>
+</html>`;
+
+  fs.writeFile('./output/team.html', renderHTML, (err) => {
+    err ? console.error(err) : console.log('Data was written Successfully');
+  });
 }

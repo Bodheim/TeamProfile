@@ -9,25 +9,31 @@
 //Can get GitHub username via getGithub()
 //getRole() should return "Engineer"
 
-const Employee = require('../lib/Employee');
-const Engineer = require('../lib/Engineer');
+const Engineer = require('../lib/engineer');
 
 describe('Engineer', () => {
-  it('Should return a new user from the engineer class', () => {
-    const newEmployee = new Employee(newName, newId, newEmail);
-    expect(typeof newEmployee).toBe('object');
-    const newEngineer = new Engineer(newGhuser);
-    expect(typeof newEngineer).toBe('object');
+  it('should return a new object from the engineer class', () => {
+    const obj = new Engineer();
+    expect(typeof obj).toBe('object');
   });
-  it('Can set a github using constructor args', () => {
-    const newGhuser = 'GitUserName';
-    const newEngineer = new Engineer(newGhuser);
-    expect(newEngineer.newGhuser).toEqual(newGhuser);
+  it('can set a name using constructor args', () => {
+    const name = 'Ben';
+    const obj = new Engineer(name);
+    expect(obj.name).toEqual(name);
   });
-  it('Can get GitHub username via getGithub()', () => {
-    expect(newEngineer.getGithub()).toEqual('GitUserName');
+  it('can set an id using constructor args', () => {
+    const id = 2;
+    const obj = new Engineer('foo', id);
+    expect(obj.id).toEqual(id);
   });
-  it("getRole() should return 'Engineer'", () => {
-    expect(newEngineer.getRole()).toEqual('Engineer');
+  it('can set an email using constructor args', () => {
+    const email = 'foo@yahoo.com';
+    const obj = new Engineer('foo', 4, email);
+    expect(obj.email).toEqual(email);
+  });
+  it('can set a github using constructor args', () => {
+    const github = 'foober';
+    const obj = new Engineer('foo', 4, 'nick@gmail.com', github);
+    expect(obj.github).toEqual(github);
   });
 });

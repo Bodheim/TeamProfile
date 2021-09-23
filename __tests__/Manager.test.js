@@ -9,25 +9,31 @@
 //Can get office number via getOffice()
 //getRole() should return "Manager"
 
-const Employee = require('../lib/Employee');
-const Manager = require('../lib/Manager');
+const Manager = require('../lib/manager');
 
 describe('Manager', () => {
-  it('Should return a new user from the Manager class', () => {
-    const newEmployee = new Employee(newName, newId, newEmail);
-    expect(typeof newEmployee).toBe('object');
-    const newManager = new Manager(newOffice);
-    expect(typeof newManager).toBe('object');
+  it('should return a new object from the manager class', () => {
+    const obj = new Manager();
+    expect(typeof obj).toBe('object');
   });
-  it('Can get office number using constructor args', () => {
-    const newOffice = '20';
-    const newManager = new Manager(newOffice);
-    expect(newManager.newOffice).toEqual(newOffice);
+  it('can set a name using constructor args', () => {
+    const name = 'Ben';
+    const obj = new Manager(name);
+    expect(obj.name).toEqual(name);
   });
-  it('Can get office number via getOffice()', () => {
-    expect(newManager.getOffice()).toEqual('20');
+  it('can set an id using constructor args', () => {
+    const id = 2;
+    const obj = new Manager('foo', id);
+    expect(obj.id).toEqual(id);
   });
-  it("getRole() should return 'Manager'", () => {
-    expect(newManager.getRole()).toEqual('Manager');
+  it('can set an email using constructor args', () => {
+    const email = 'foo@yahoo.com';
+    const obj = new Manager('foo', 4, email);
+    expect(obj.email).toEqual(email);
+  });
+  it('can set an office number using constructor args', () => {
+    const office = '2';
+    const obj = new Manager('foo', 4, 'nick@gmail.com', office);
+    expect(obj.officeNumber).toEqual(office);
   });
 });

@@ -13,23 +13,23 @@
 const Employee = require('../lib/Employee');
 
 describe('Employee', () => {
-  it('Should return a new user with the employee class', () => {
-    const newEmployee = new Employee(newName, newId, newEmail);
-    expect(typeof newEmployee).toBe('object');
+  it('should return a new object from the employee class', () => {
+    const obj = new Employee();
+    expect(typeof obj).toBe('object');
   });
-  it('Can set a name using constructor arguments', () => {
-    const newName = 'Abby';
-    const newEmployee = new Employee(newName);
-    expect(newEmployee.newName).toEqual(newName);
+  it('can set a name using constructor args', () => {
+    const name = 'Ben';
+    const obj = new Employee(name);
+    expect(obj.name).toEqual(name);
   });
-  it('Can set an id using constructor arguments', () => {
-    const newId = 1;
-    const newEmployee = new Employee('foo', newId);
-    expect(newEmployee.newId).toEqual(newId);
+  it('can set an id using constructor args', () => {
+    const id = 2;
+    const obj = new Employee('foo', id);
+    expect(obj.id).toEqual(id);
   });
-  it('Can set an email using constructor arguments', () => {
-    const newEmail = 'a@b.com';
-    const newEmployee = new Employee('foo', 1, newEmail);
-    expect(newEmployee.newEmail).toEqual(newEmail);
+  it('can set an email using constructor args', () => {
+    const email = 'foo@yahoo.com';
+    const obj = new Employee('foo', 4, email);
+    expect(obj.email).toEqual(email);
   });
 });
