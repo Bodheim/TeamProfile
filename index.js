@@ -186,7 +186,7 @@ function generateHTML() {
     <ul class="list-group list-group-flush text-dark">
     <li class="list-group-item">ID: ${item.id}</li>
     <li class="list-group-item">Email: <a href="mailto:${item.email}" target="no_blank">${item.email}</a></li>
-    <li class="list-group-item">GitHub: <a href="'https://github.com/ + ${item.github}'" target="_blank">${item.github}</a></li>
+    <li class="list-group-item">GitHub: <a href="https://github.com/${item.github}" target="_blank">${item.github}</a></li>
     </ul>
   </div>`;
   });

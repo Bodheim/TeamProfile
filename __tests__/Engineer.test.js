@@ -17,12 +17,12 @@ describe('Engineer', () => {
     expect(typeof obj).toBe('object');
   });
   it('can set a name using constructor args', () => {
-    const name = 'Ben';
+    const name = 'foo';
     const obj = new Engineer(name);
     expect(obj.name).toEqual(name);
   });
   it('can set an id using constructor args', () => {
-    const id = 2;
+    const id = 4;
     const obj = new Engineer('foo', id);
     expect(obj.id).toEqual(id);
   });
@@ -32,8 +32,8 @@ describe('Engineer', () => {
     expect(obj.email).toEqual(email);
   });
   it('can set a github using constructor args', () => {
-    const github = 'foober';
-    const obj = new Engineer('foo', 4, 'nick@gmail.com', github);
+    const github = 'ber';
+    const obj = new Engineer('foo', 4, 'foo@yahoo.com', github);
     expect(obj.github).toEqual(github);
   });
 });

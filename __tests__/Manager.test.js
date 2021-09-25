@@ -34,6 +34,6 @@ describe('Manager', () => {
   it('can set an office number using constructor args', () => {
     const office = '2';
     const obj = new Manager('foo', 4, 'nick@gmail.com', office);
-    expect(obj.officeNumber).toEqual(office);
+    expect(obj.office).toEqual(office);
   });
 });
